@@ -28,9 +28,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'simple_history',
-    'api',
     'rest_framework',
+    'api',
+    'simple_history',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -43,6 +44,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Api Eventos',
+    'DESCRIPTION': 'Api de eventos com integração sympla',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
 
 ROOT_URLCONF = 'configuracao.urls'
 
