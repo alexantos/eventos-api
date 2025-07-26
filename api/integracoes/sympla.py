@@ -1,7 +1,4 @@
-from rest_framework import status
-from rest_framework.response import Response
-
-from api.models import EventoSympla, Evento, Integracao, API_CONSULTA
+from api.models import EventoSympla, Evento, Integracao
 import requests
 
 from configuracao.settings import SYMPLA_TOKEN
