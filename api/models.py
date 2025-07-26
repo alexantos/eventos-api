@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 
 class ModelBase(models.Model):
@@ -19,29 +20,39 @@ class Evento(ModelBase):
     data_hora_fim = models.DateTimeField()
     categoria = models.CharField(max_length=64)
 
+    historico = HistoricalRecords()
+
     def __str__(self):
         return self.nome
 
 
-class IntegracaoSympla(ModelBase):
+API_CONSULTA = [
+    ("SYMPLA", "Sympla"),
+]
+
+
+class Integracao(ModelBase):
     requisicao = models.JSONField()
     status_code = models.CharField(max_length=4)
+    api_consulta = models.CharField(max_length=32, choices=API_CONSULTA)
 
     def __str__(self):
         return str(self.id)
 
     class Meta:
-        verbose_name_plural = 'Integrações Sympla'
+        verbose_name_plural = 'Integrações'
 
 
 class EventoSympla(ModelBase):
     id_sympla = models.CharField(max_length=7)
     reference_id = models.CharField(max_length=7)
     evento = models.ForeignKey(to=Evento, on_delete=models.PROTECT)
-    integracao = models.ForeignKey(to=IntegracaoSympla, on_delete=models.PROTECT)
+    integracao_sympla = models.ForeignKey(to=Integracao, on_delete=models.PROTECT)
+
+    historico = HistoricalRecords()
 
     def __str__(self):
-        return self.id_sympla
+        return self.evento.nome
 
     class Meta:
         verbose_name_plural = 'Eventos Sympla'
