@@ -1,4 +1,4 @@
-# Produtor rural back
+# Eventos api
 
 Desenvolvido com django 5.2.4 e drf 3.16.0
 
@@ -41,7 +41,7 @@ Para atender as necessidades dessa imagem já deixei uma configuração fixa do 
 ```
 # Configuração fixa para o docker
 DJANGO_LOGLEVEL=info
-DATABASE_ENGINE=postgresql_psycopg2
+DATABASE_ENGINE=django.db.backends.postgresql.postgresql_psycopg2
 DATABASE_NAME=dockerdjango
 DATABASE_USERNAME=dbuser
 DATABASE_PASSWORD=dbpassword
@@ -81,7 +81,7 @@ docker compose up --build
 
 Instalação: https://www.postgresql.org/download/
 
-Devemos acessar o postgres e criar o banco de dados (no meu caso chamei o banco de produtor, mas isso é escolha sua):
+Devemos acessar o postgres e criar o banco de dados (no meu caso chamei o banco de evento, mas isso é escolha sua):
 
 ```shell
 sudo -u postgres psql
@@ -156,16 +156,21 @@ python manage.py runserver
 
 ### Rotas utilizadas:
 
-CRUD de eventos interno do sistema (api).
+CRUD de eventos interno do sistema (api):
 ```shell
 curl -X 'GET' \
   'http://localhost:8000/api/evento/' \
   -H 'accept: application/json'
 ```
 
-Atualização de dados baseado na api
+Atualização de dados baseado na api:
 ```shell
 curl -X 'GET' \
   'http://localhost:8000/atualiza-eventos-sympla/' \
   -H 'accept: */*'
+```
+
+Swagger:
+```
+http://localhost:8000/api/schema/swagger-ui/
 ```
